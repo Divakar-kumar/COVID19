@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:covid19/covid.dart';
+import 'package:covid19/features/home/domain/providers/firebase_auth_provider.dart';
 import 'package:covid19/features/intro/domain/providers/registration_provider.dart';
 import 'package:covid19/features/intro/presentation/screens/verification_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:provider/provider.dart';
 
 class Registration extends StatefulWidget {
   @override
@@ -13,19 +17,39 @@ class _RegistrationState extends State<Registration> {
   String phoneNumber;
   String phoneIsoCode = '+91';
   bool visible = false;
-  String confirmedNumber = '';  
+  String confirmedNumber = '';
   void onPhoneNumberChange(String number) {
     print(number);
     setState(() {
       phoneNumber = number;
     });
   }
-    void onPhoneNumberChangeTest(PhoneNumber number) {
+
+  void onPhoneNumberChangeTest(PhoneNumber number) {
     print(number);
     setState(() {
       phoneNumber = number.phoneNumber;
     });
   }
+
+  Future<void> _signInAnonymously(context) async {
+    try {
+      var authResponse = await FirebaseAuth.instance.signInAnonymously();
+      FirebaseUser _covidUser = authResponse.user;
+      Firestore.instance
+          .collection("users")
+          .document(authResponse.user.uid)
+          .setData({
+        "uid": authResponse.user.uid,
+        "phoneNumber": phoneNumber
+      });
+      var authProvider = Provider.of<AuthProvider>(context, listen: false);
+      authProvider.setCurrentUser(_covidUser);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -88,7 +112,7 @@ class _RegistrationState extends State<Registration> {
                             width: size.width - 170,
                             child: InternationalPhoneNumberInput(
                               isEnabled: true,
-                              autoValidate: true,                            
+                              autoValidate: true,
                               formatInput: false,
                               initialCountry2LetterCode: 'IN',
                               hintText: 'Invalid phone number',
@@ -117,13 +141,19 @@ class _RegistrationState extends State<Registration> {
                               color: Color(0xffffffff)),
                         ),
                       ),
-                      onTap: () async{
-                        var result= await FirebasePhoneAuth.instantiate(phoneNumber: phoneNumber);                     
-                        Navigator.push(
+                      onTap: () async {
+                        // var result= await FirebasePhoneAuth.instantiate(phoneNumber: phoneNumber);
+                        await _signInAnonymously(context);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => CovidPage()),
+                          (Route<dynamic> route) => false,
+                        );
+                        /*Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => VerificationScreen()),
-                        );
+                        );*/
                       },
                     ),
                   ],
