@@ -1,16 +1,19 @@
 # covid19
 
-A new Flutter project.
+Flutter app developed to address few COVID issues
 
-## Getting Started
+## Use Cases
 
-This project is a starting point for a Flutter application.
+- Sleek design 
 
-A few resources to get you started if this is your first Flutter project:
+<img src="https://he-s3.s3.amazonaws.com/media/sprint/hackerearth-hackcovid/team/835124/0c26c87screenshot_2020_04_12_19_59_20_194_com_divakar_covid19.jpg" />
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+<img src="https://he-s3.s3.amazonaws.com/media/sprint/hackerearth-hackcovid/team/835124/1ac8b8fscreenshot_2020_04_13_01_57_59_736_com_divakar_covid19.jpg" />
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Google Map Integration 
+
+<img src="https://he-s3.s3.amazonaws.com/media/sprint/hackerearth-hackcovid/team/835124/2960845screenshot_2020_04_12_20_02_19_888_com_divakar_covid19.jpg" />
+
+- Booking Slots for any places
+
+<img src="https://he-s3.s3.amazonaws.com/media/sprint/hackerearth-hackcovid/team/835124/2fd16aascreenshot_2020_04_12_20_02_23_957_com_divakar_covid19.jpg" />
