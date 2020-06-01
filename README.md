@@ -2,13 +2,17 @@
 
 Flutter app developed to address few COVID issues
 
-## Use Cases
+## Features
 
 - Sleek design 
 
 - Google Map Integration 
 
 - Booking Slots for any places
+
+- Home training Videos for Sport
+
+- Post Feed
 
 | | | |
 |:-------------------------:|:-------------------------:|:-------------------------:|
